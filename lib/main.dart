@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
               ),
               // ···
               titleLarge: GoogleFonts.montserrat(
-                fontSize: 30,
+                fontSize: 20,
               ),
               bodyMedium: GoogleFonts.montserrat(),
               displaySmall: GoogleFonts.montserrat(),

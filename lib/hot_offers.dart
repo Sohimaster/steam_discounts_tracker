@@ -57,38 +57,47 @@ class HotOffersState extends State<HotOffers> {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      child: ListView.separated(
-        itemCount: filteredGames.length,
-        itemBuilder: (BuildContext context, int index) {
-          final game = filteredGames[index];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
+    return GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // Two items per row
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        childAspectRatio: 0.75, // Adjust based on your image aspect ratio and text height
+      ),
+      itemCount: filteredGames.length,
+      itemBuilder: (BuildContext context, int index) {
+        final game = filteredGames[index];
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8), // Rounded corners
+          child: Stack(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8), // Rounded corners
-                child: Image.network(
-                  game.imageLink,
-                  width: double.infinity, // Take full width of the container
-                  height: 200, // Fixed height, adjust according to your need
-                  fit: BoxFit.cover, // Cover the area without distorting the aspect ratio
-                ),
+              Image.network(
+                game.imageLink,
+                width: double.infinity, // Take full width of the container
+                height: double.infinity, // Make sure the image covers the stack
+                fit: BoxFit.cover, // Cover the area without distorting the aspect ratio
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
-                  children: [
-                    Text(game.title, style: Theme.of(context).textTheme.titleLarge),
-                    Text("${game.discountedPrice}${game.currency} (${game.discount}% OFF)", style: GoogleFonts.montserrat(color: Colors.red[300])),
-                  ],
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.black.withOpacity(0.8), // Semi-transparent overlay
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(game.title, style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white)),
+                      Text("${game.discountedPrice}${game.currency} (${game.discount}% OFF)", style: GoogleFonts.montserrat(color: Colors.red[300], fontSize: 13, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
                 ),
               ),
             ],
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10), // Add space between rows
-      ),
+          ),
+        );
+      },
     );
   }
 }

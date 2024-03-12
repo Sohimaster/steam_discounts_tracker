@@ -4,7 +4,7 @@ class Game {
   final double originalPrice;
   final double discountedPrice;
   final String currency;
-  final double discount;
+  final int discount;
   final String storeLink;
 
   Game({
@@ -25,7 +25,7 @@ class Game {
       discountedPrice: (json['discounted_price'] as num).toDouble(),
       currency: json['currency'],
       storeLink: json['store_link'],
-      discount: (json['discount'] as num).toDouble(),
+      discount: (json['discount'] as num).toInt(),
     );
   }
 }
