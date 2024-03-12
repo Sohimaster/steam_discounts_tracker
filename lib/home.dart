@@ -12,6 +12,7 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  String _searchQuery = "";
   int _selectedIndex = 1;
   final TextEditingController _searchController = TextEditingController();
 
@@ -23,19 +24,20 @@ class HomeState extends State<Home> {
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
+  List<Widget> get _widgetOptions => <Widget>[
+    const Text(
       'Index 0: Home',
       style: optionStyle,
     ),
-    HotOffers(),
-    Text(
+    HotOffers(searchQuery: _searchQuery), // Pass the search query without const
+    const Text(
       'Index 2: School',
       style: optionStyle,
     ),
   ];
 
-  void _goto_settings() {
+
+  void _gotoSettings() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
       return const Settings();
@@ -54,27 +56,35 @@ class HomeState extends State<Home> {
             ),
             child: Center(
                 child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search, color: Colors.white),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear, color: Colors.white),
-                  onPressed: () {
-                    _searchController.clear();
-                    SystemChannels.textInput.invokeMethod('TextInput.hide');
+                  onChanged: (query) {
+                    setState(() {
+                      _searchQuery = query;
+                    });
                   },
-                ),
-                hintText: 'Search...',
-                hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
-                border: InputBorder.none,
-              ),
-              style: const TextStyle(color: Colors.white, fontSize: 16),
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search, color: Colors.white),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear, color: Colors.white),
+                      onPressed: () {
+                        setState(() {
+                          _searchQuery = "";
+                        });
+                        _searchController.clear();
+                        SystemChannels.textInput.invokeMethod('TextInput.hide');
+                      },
+                    ),
+                    hintText: 'Search...',
+                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                    border: InputBorder.none,
+                  ),
+                  style: const TextStyle(color: Colors.black, fontSize: 16),
               // Implement your search functionality here
               // For example, you could call your search method on submission:
               // onSubmitted: (query) => _search(query),
             ))),
         actions: <Widget>[
-          IconButton(onPressed: _goto_settings, icon: const Icon(Icons.list))
+          IconButton(onPressed: _gotoSettings, icon: const Icon(Icons.list))
         ],
       ),
       body: Center(
@@ -96,7 +106,7 @@ class HomeState extends State<Home> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.red[300],
         onTap: _onItemTapped,
       ),
     );
