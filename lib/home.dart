@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   final TextEditingController _searchController = TextEditingController();
 
   void _onItemTapped(int index) {
@@ -26,10 +26,31 @@ class HomeState extends State<Home> {
       'Index 0: Home',
       style: optionStyle,
     ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    Scaffold(
+        body: SingleChildScrollView(
+      child: ListBody(children: [
+        ListTile(
+          title: Text("Cyberpunk 2077"),
+          subtitle: Text("-20% OFF"),
+          trailing: Icon(Icons.cyclone),
+        ),
+        ListTile(
+          title: Text("Witcher 3"),
+          subtitle: Text("-50% OFF"),
+          trailing: Icon(Icons.cyclone),
+        ),
+        ListTile(
+          title: Text("Red Dead Redemption 2"),
+          subtitle: Text("-30% OFF"),
+          trailing: Icon(Icons.cyclone),
+        ),
+        ListTile(
+          title: Text("Minecraft"),
+          subtitle: Text("-10% OFF"),
+          trailing: Icon(Icons.cyclone),
+        ),
+      ]),
+    )),
     Text(
       'Index 2: School',
       style: optionStyle,
@@ -57,9 +78,9 @@ class HomeState extends State<Home> {
                 child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search, color: Colors.white),
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.clear, color: Colors.white),
+                  icon: const Icon(Icons.clear, color: Colors.white),
                   onPressed: () {
                     _searchController.clear();
                     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -69,7 +90,7 @@ class HomeState extends State<Home> {
                 hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
                 border: InputBorder.none,
               ),
-              style: TextStyle(color: Colors.white, fontSize: 16),
+              style: const TextStyle(color: Colors.white, fontSize: 16),
               // Implement your search functionality here
               // For example, you could call your search method on submission:
               // onSubmitted: (query) => _search(query),
