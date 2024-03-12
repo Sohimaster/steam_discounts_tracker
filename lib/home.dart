@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:steam_discounts_tracker/settings.dart';
 
+import 'hot_offers.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -26,31 +28,7 @@ class HomeState extends State<Home> {
       'Index 0: Home',
       style: optionStyle,
     ),
-    Scaffold(
-        body: SingleChildScrollView(
-      child: ListBody(children: [
-        ListTile(
-          title: Text("Cyberpunk 2077"),
-          subtitle: Text("-20% OFF"),
-          trailing: Icon(Icons.cyclone),
-        ),
-        ListTile(
-          title: Text("Witcher 3"),
-          subtitle: Text("-50% OFF"),
-          trailing: Icon(Icons.cyclone),
-        ),
-        ListTile(
-          title: Text("Red Dead Redemption 2"),
-          subtitle: Text("-30% OFF"),
-          trailing: Icon(Icons.cyclone),
-        ),
-        ListTile(
-          title: Text("Minecraft"),
-          subtitle: Text("-10% OFF"),
-          trailing: Icon(Icons.cyclone),
-        ),
-      ]),
-    )),
+    HotOffers(),
     Text(
       'Index 2: School',
       style: optionStyle,
