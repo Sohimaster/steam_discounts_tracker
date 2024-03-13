@@ -14,9 +14,14 @@ class Settings extends StatefulWidget {
 }
 
 class LocationService {
+
+  static Future<void> updateCountry(String country) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('country', country);
+  }
+
   static Future<String> getCountryName() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Try to get the country from shared preferences
     final savedCountry = prefs.getString('country');
     if (savedCountry != null) {
       return savedCountry; // Return saved country if found
@@ -27,7 +32,7 @@ class LocationService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final country = data['country'];
-      await prefs.setString('country', country);
+      await updateCountry(country);
       return country;
     } else {
       return "US";
@@ -68,7 +73,9 @@ class SettingsState extends State<Settings> {
                 } else {
                   // Use snapshot.data which contains your country name
                   return CountryCodePicker(
-                    onChanged: print, // Handle country change
+                    onChanged: (CountryCode countryCode) {
+                      LocationService.updateCountry(countryCode.code as String); // Assume you want to save the country code
+                    },
                     initialSelection: snapshot.data,
                     showCountryOnly: true,
                     showOnlyCountryWhenClosed: true,
