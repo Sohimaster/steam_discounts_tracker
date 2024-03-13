@@ -73,6 +73,7 @@ class SettingsState extends State<Settings> {
                 } else {
                   // Use snapshot.data which contains your country name
                   return CountryCodePicker(
+                    flagDecoration: BoxDecoration(borderRadius: BorderRadius.circular(3)),
                     onChanged: (CountryCode countryCode) {
                       LocationService.updateCountry(countryCode.code as String); // Assume you want to save the country code
                     },
