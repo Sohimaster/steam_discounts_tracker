@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "237038833315",
+    "project_id": "steam-discounts-tracker",
+    "storage_bucket": "steam-discounts-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237038833315:android:b8aae79470bf1d3961b916",
+        "android_client_info": {
+          "package_name": "com.sohimaster.steam_discounts_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxfHDa2VAnkyxpu_t_i2lFAhIYm8C8Of0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

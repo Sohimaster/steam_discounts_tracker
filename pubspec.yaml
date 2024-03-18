@@ -40,6 +40,10 @@ dependencies:
   http: ^1.2.1
   shared_preferences: ^2.2.2
   google_fonts: ^6.2.0
+  firebase_core: ^2.27.1
+  firebase_auth: ^4.17.9
+  google_sign_in: ^6.2.1
+  sign_in_with_apple: ^5.0.0
 
 
 dev_dependencies:
