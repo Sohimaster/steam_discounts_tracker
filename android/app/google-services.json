@@ -12,7 +12,20 @@
           "package_name": "com.sohimaster.steam_discounts_tracker"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "237038833315-mmuj8oq1d996ea8vt95a0b8af3du43fg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sohimaster.steam_discounts_tracker",
+            "certificate_hash": "c0d38dae6fd54b8b79fac2b0a8d1ba25ac37d7b9"
+          }
+        },
+        {
+          "client_id": "237038833315-qo0q4rm03jucaf12734k51us8s8qgahb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDxfHDa2VAnkyxpu_t_i2lFAhIYm8C8Of0"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237038833315-qo0q4rm03jucaf12734k51us8s8qgahb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
