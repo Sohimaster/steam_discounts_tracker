@@ -11,18 +11,19 @@ class MyApp extends StatelessWidget {
   Widget build(context) {
     return MaterialApp(
         theme: ThemeData(
-            textTheme: TextTheme(
-              displayLarge: GoogleFonts.montserrat(
-                fontSize: 72,
-                fontWeight: FontWeight.bold,
-              ),
-              // ···
-              titleLarge: GoogleFonts.montserrat(
-                fontSize: 20,
-              ),
-              bodyMedium: GoogleFonts.montserrat(),
-              displaySmall: GoogleFonts.montserrat(),
+          textTheme: TextTheme(
+            displayLarge: GoogleFonts.montserrat(
+              fontSize: 72,
+              fontWeight: FontWeight.bold,
             ),
-        ), home: const Home());
+            // ···
+            titleLarge: GoogleFonts.montserrat(
+              fontSize: 20,
+            ),
+            bodyMedium: GoogleFonts.montserrat(),
+            displaySmall: GoogleFonts.montserrat(),
+          ),
+        ),
+        home: const Home());
   }
 }

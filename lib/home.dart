@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:steam_discounts_tracker/search.dart';
 import 'package:steam_discounts_tracker/settings.dart';
+import 'package:steam_discounts_tracker/subscriptions.dart';
 
 import 'hot_offers.dart';
 
@@ -25,17 +27,10 @@ class HomeState extends State<Home> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> get _widgetOptions => <Widget>[
-    const Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    HotOffers(searchQuery: _searchQuery), // Pass the search query without const
-    const Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
-
+        Search(searchQuery: _searchQuery),
+        HotOffers(searchQuery: _searchQuery),
+        Subscriptions(searchQuery: _searchQuery),
+      ];
 
   void _gotoSettings() {
     Navigator.of(context)
@@ -56,29 +51,29 @@ class HomeState extends State<Home> {
             ),
             child: Center(
                 child: TextField(
-                  onChanged: (query) {
+              onChanged: (query) {
+                setState(() {
+                  _searchQuery = query;
+                });
+              },
+              controller: _searchController,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.clear, color: Colors.white),
+                  onPressed: () {
                     setState(() {
-                      _searchQuery = query;
+                      _searchQuery = "";
                     });
+                    _searchController.clear();
+                    SystemChannels.textInput.invokeMethod('TextInput.hide');
                   },
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search, color: Colors.white),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear, color: Colors.white),
-                      onPressed: () {
-                        setState(() {
-                          _searchQuery = "";
-                        });
-                        _searchController.clear();
-                        SystemChannels.textInput.invokeMethod('TextInput.hide');
-                      },
-                    ),
-                    hintText: 'Search...',
-                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
-                    border: InputBorder.none,
-                  ),
-                  style: const TextStyle(color: Colors.black, fontSize: 16),
+                ),
+                hintText: 'Search...',
+                hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                border: InputBorder.none,
+              ),
+              style: const TextStyle(color: Colors.black, fontSize: 16),
               // Implement your search functionality here
               // For example, you could call your search method on submission:
               // onSubmitted: (query) => _search(query),
@@ -106,6 +101,12 @@ class HomeState extends State<Home> {
           ),
         ],
         currentIndex: _selectedIndex,
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
         selectedItemColor: Colors.red[300],
         onTap: _onItemTapped,
       ),

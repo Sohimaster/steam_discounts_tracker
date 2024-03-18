@@ -6,6 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'const.dart';
+
 class Settings extends StatefulWidget {
   const Settings({super.key});
 
@@ -14,7 +16,6 @@ class Settings extends StatefulWidget {
 }
 
 class LocationService {
-
   static Future<void> updateCountry(String country) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('country', country);
@@ -50,6 +51,34 @@ class SettingsState extends State<Settings> {
     }
   }
 
+  Future<void> _sendFeedbackEmail() async {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: devEmail, // Replace with your email address
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Feedback',
+      }),
+    );
+
+    if (await canLaunchUrl(emailLaunchUri)) {
+      await launchUrl(emailLaunchUri);
+    } else {
+      // Show error or message if unable to open the mail app
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Unable to open the mail app. You can send an email to $devEmail"),
+        ),
+      );
+    }
+  }
+
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((e) =>
+    '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,9 +102,11 @@ class SettingsState extends State<Settings> {
                 } else {
                   // Use snapshot.data which contains your country name
                   return CountryCodePicker(
-                    flagDecoration: BoxDecoration(borderRadius: BorderRadius.circular(3)),
+                    flagDecoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(3)),
                     onChanged: (CountryCode countryCode) {
-                      LocationService.updateCountry(countryCode.code as String); // Assume you want to save the country code
+                      LocationService.updateCountry(countryCode.code
+                          as String); // Assume you want to save the country code
                     },
                     initialSelection: snapshot.data,
                     showCountryOnly: true,
@@ -97,6 +128,15 @@ class SettingsState extends State<Settings> {
                     Uri.parse('https://www.example.com/donate') as String);
               },
               child: const Text('Donate'),
+            ),
+          ),
+          ListTile(
+            title: const Text('Contact the developers to leave feedback'),
+            trailing: ElevatedButton(
+              onPressed: () {
+                _sendFeedbackEmail();
+              },
+              child: const Text('Feedback'),
             ),
           ),
         ],
