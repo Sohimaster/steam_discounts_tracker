@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:steam_discounts_tracker/home.dart';
-import 'login.dart';
+import 'package:steam_discounts_tracker/screens/home.dart';
+import 'screens/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,12 +33,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         textTheme: TextTheme(
-          displayLarge:
-              GoogleFonts.montserrat(fontSize: 72, fontWeight: FontWeight.bold),
-          titleLarge: GoogleFonts.montserrat(fontSize: 20),
-          bodyMedium: GoogleFonts.montserrat(),
-          displaySmall: GoogleFonts.montserrat(),
-        ),
+            displayLarge: GoogleFonts.montserrat(
+                fontSize: 72, fontWeight: FontWeight.bold),
+            titleLarge: GoogleFonts.montserrat(fontSize: 20),
+            bodyMedium: GoogleFonts.montserrat(),
+            displaySmall: GoogleFonts.montserrat(),
+            titleSmall:
+                GoogleFonts.montserrat(fontSize: 13, color: Colors.grey)),
       ),
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),

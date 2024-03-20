@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:steam_discounts_tracker/search.dart';
-import 'package:steam_discounts_tracker/settings.dart';
-import 'package:steam_discounts_tracker/subscriptions.dart';
+import 'package:steam_discounts_tracker/components/search.dart';
+import 'package:steam_discounts_tracker/screens/settings.dart';
+import 'package:steam_discounts_tracker/screens/subscriptions.dart';
 
 import 'hot_offers.dart';
 

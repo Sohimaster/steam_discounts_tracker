@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'game.dart';
-import 'mock_data/hot_games.dart';
+import '../mock_data/hot_games.dart';
 
-class Subscriptions extends StatefulWidget {
+class Search extends StatefulWidget {
   final String searchQuery;
-  const Subscriptions({super.key, required this.searchQuery});
+  const Search({super.key, required this.searchQuery});
 
   @override
-  State<StatefulWidget> createState() => SubscriptionsState();
+  State<StatefulWidget> createState() => SearchState();
 }
 
-class SubscriptionsState extends State<Subscriptions> {
+class SearchState extends State<Search> {
   List<Game> games = [];
   List<Game> filteredGames = [];
 
@@ -23,24 +23,11 @@ class SubscriptionsState extends State<Subscriptions> {
   }
 
   @override
-  void didUpdateWidget(covariant Subscriptions oldWidget) {
+  void didUpdateWidget(covariant Search oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.searchQuery != oldWidget.searchQuery) {
-      filterGames();
+      fetchGames();
     }
-  }
-
-  void filterGames() {
-    if (widget.searchQuery.isEmpty) {
-      filteredGames = games;
-    } else {
-      filteredGames = games.where((game) {
-        return game.title
-            .toLowerCase()
-            .contains(widget.searchQuery.toLowerCase());
-      }).toList();
-    }
-    setState(() {});
   }
 
   void fetchGames() async {
@@ -53,17 +40,16 @@ class SubscriptionsState extends State<Subscriptions> {
 
     setState(() {
       games = fetchedGames;
-      filteredGames = games;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (filteredGames.isEmpty) {
+    if (games.isEmpty) {
       // Display a message when there are no subscriptions
       return Center(
         child: Text(
-          "You don't have any subscriptions yet...",
+          "Start typing...",
           style: GoogleFonts.montserrat(color: Colors.grey, fontSize: 16),
         ),
       );

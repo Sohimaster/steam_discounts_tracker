@@ -60,12 +60,52 @@ class LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _loginStatus == LoginStatus.inProgress
-            ? const CircularProgressIndicator()
-            : ElevatedButton(
-                onPressed: _signInWithGoogle,
-                child: const Text('Sign in with Google'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Hello',
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
+            SizedBox(height: 8), // Adds space between text widgets
+            RichText(
+              textAlign: TextAlign.center,
+              text: const TextSpan(
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+                children: <TextSpan>[
+                  TextSpan(text: 'Welcome to '),
+                  TextSpan(
+                    text: 'GamesAlert',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: ' - the best discounts tracker!'),
+                ],
               ),
+            ),
+            const SizedBox(height: 20), // Adds space before the button
+            _loginStatus == LoginStatus.inProgress
+                ? const CircularProgressIndicator()
+                : IconButton(
+                    onPressed: _signInWithGoogle,
+                    icon: CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.transparent,
+                      child: Image.asset(
+                        'assets/images/icons/google.png',
+                        // This line ensures the image assets use the best resolution available
+                        scale: 1.0,
+                      ),
+                    ),
+                  ),
+            Text(
+              'Click to sign in',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ],
+        ),
       ),
     );
   }

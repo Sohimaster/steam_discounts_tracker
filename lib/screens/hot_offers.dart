@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'game.dart';
-import 'mock_data/hot_games.dart';
+import '../components/game.dart';
+import '../mock_data/hot_games.dart';
 
 class HotOffers extends StatefulWidget {
   final String searchQuery;

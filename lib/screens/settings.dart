@@ -7,8 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'const.dart';
-import 'logout_button.dart';
+import '../const.dart';
+import '../components/logout_button.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
