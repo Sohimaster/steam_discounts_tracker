@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -67,7 +66,7 @@ class LoginState extends State<Login> {
               'Hello',
               style: Theme.of(context).textTheme.displayMedium,
             ),
-            SizedBox(height: 8), // Adds space between text widgets
+            const SizedBox(height: 8), // Adds space between text widgets
             RichText(
               textAlign: TextAlign.center,
               text: const TextSpan(

@@ -37,7 +37,7 @@ class LogoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => _signOut(context),
-      child: Text('Logout'),
+      child: const Text('Logout'),
     );
   }
 }

@@ -75,7 +75,7 @@ class SettingsState extends State<Settings> {
     } else {
       // Show error or message if unable to open the mail app
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
               "Unable to open the mail app. You can send an email to $devEmail"),
         ),
@@ -122,7 +122,7 @@ class SettingsState extends State<Settings> {
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 Widget child;
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  child = Center(child: CircularProgressIndicator());
+                  child = const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   child = Text('Error: ${snapshot.error}');
                 } else {
@@ -169,7 +169,7 @@ class SettingsState extends State<Settings> {
           ),
           ListTile(
             title: Text('Logged in as: $userEmail'),
-            trailing: LogoutButton(),
+            trailing: const LogoutButton(),
           )
         ],
       ),

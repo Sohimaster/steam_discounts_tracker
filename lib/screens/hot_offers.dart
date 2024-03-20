@@ -68,7 +68,7 @@ class HotOffersState extends State<HotOffers> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               leading: IconButton(
-                icon: Icon(Icons.close, color: Colors.white),
+                icon: const Icon(Icons.close, color: Colors.white),
                 onPressed: () =>
                     Navigator.of(context).pop(), // Closes the modal
               ),
@@ -107,13 +107,13 @@ class HotOffersState extends State<HotOffers> {
                                 onPressed: () {
                                   // Add your subscription logic here
                                 },
-                                child: Text('Subscribe'),
+                                child: const Text('Subscribe'),
                               ),
                               ElevatedButton(
                                 onPressed: () {
                                   // Add your logic to open the game's store page here
                                 },
-                                child: Text('Store Page'),
+                                child: const Text('Store Page'),
                               ),
                             ],
                           ),

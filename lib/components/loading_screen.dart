@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoadingScreen extends StatelessWidget {
@@ -16,8 +15,7 @@ class LoadingScreen extends StatelessWidget {
 
 class NoAnimationPageRoute<T> extends MaterialPageRoute<T> {
   NoAnimationPageRoute(
-      {required WidgetBuilder builder, RouteSettings? settings})
-      : super(builder: builder, settings: settings);
+      {required super.builder, super.settings});
 
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,
