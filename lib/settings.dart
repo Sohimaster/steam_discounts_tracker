@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'const.dart';
+import 'logout_button.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -42,6 +44,14 @@ class LocationService {
 }
 
 class SettingsState extends State<Settings> {
+  late String userEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUserEmail();
+  }
+
   Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
@@ -66,7 +76,8 @@ class SettingsState extends State<Settings> {
       // Show error or message if unable to open the mail app
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Unable to open the mail app. You can send an email to $devEmail"),
+          content: Text(
+              "Unable to open the mail app. You can send an email to $devEmail"),
         ),
       );
     }
@@ -75,8 +86,22 @@ class SettingsState extends State<Settings> {
   String? encodeQueryParameters(Map<String, String> params) {
     return params.entries
         .map((e) =>
-    '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
         .join('&');
+  }
+
+  void getCurrentUserEmail() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // If the user is signed in
+      setState(() {
+        userEmail = user.email!;
+      });
+    } else {
+      setState(() {
+        userEmail = 'NO USER';
+      });
+    }
   }
 
   @override
@@ -91,22 +116,22 @@ class SettingsState extends State<Settings> {
             MainAxisSize.min, // Use min to fit content in the space needed.
         children: [
           ListTile(
-            title: Text('Choose your country'),
+            title: const Text('Choose your country'),
             trailing: FutureBuilder<String>(
               future: LocationService.getCountryName(),
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                Widget child;
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  child = Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
+                  child = Text('Error: ${snapshot.error}');
                 } else {
                   // Use snapshot.data which contains your country name
-                  return CountryCodePicker(
+                  child = CountryCodePicker(
                     flagDecoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(3)),
                     onChanged: (CountryCode countryCode) {
-                      LocationService.updateCountry(countryCode.code
-                          as String); // Assume you want to save the country code
+                      LocationService.updateCountry(countryCode.code as String);
                     },
                     initialSelection: snapshot.data,
                     showCountryOnly: true,
@@ -114,6 +139,9 @@ class SettingsState extends State<Settings> {
                     alignLeft: false,
                   );
                 }
+                // Wrap the child with a SizedBox to constrain its width
+                return SizedBox(
+                    width: 200, child: child); // Adjust the width as needed
               },
             ),
           ),
@@ -139,6 +167,10 @@ class SettingsState extends State<Settings> {
               child: const Text('Feedback'),
             ),
           ),
+          ListTile(
+            title: Text('Logged in as: $userEmail'),
+            trailing: LogoutButton(),
+          )
         ],
       ),
     );

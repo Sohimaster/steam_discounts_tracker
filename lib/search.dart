@@ -36,7 +36,7 @@ class SearchState extends State<Search> {
     final jsonResponse = hotGamesMock;
 
     List<Game> fetchedGames =
-    []; //jsonResponse.map((gameJson) => Game.fromJson(gameJson)).toList();
+        []; //jsonResponse.map((gameJson) => Game.fromJson(gameJson)).toList();
 
     setState(() {
       games = fetchedGames;
@@ -62,7 +62,7 @@ class SearchState extends State<Search> {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         childAspectRatio:
-        0.75, // Adjust based on your image aspect ratio and text height
+            0.75, // Adjust based on your image aspect ratio and text height
       ),
       itemCount: filteredGames.length,
       itemBuilder: (BuildContext context, int index) {
@@ -85,7 +85,7 @@ class SearchState extends State<Search> {
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   color:
-                  Colors.black.withOpacity(0.8), // Semi-transparent overlay
+                      Colors.black.withOpacity(0.8), // Semi-transparent overlay
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
