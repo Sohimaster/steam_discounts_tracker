@@ -115,36 +115,36 @@ class SettingsState extends State<Settings> {
         mainAxisSize:
             MainAxisSize.min, // Use min to fit content in the space needed.
         children: [
-          ListTile(
-            title: const Text('Choose your country'),
-            trailing: FutureBuilder<String>(
-              future: LocationService.getCountryName(),
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                Widget child;
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  child = const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  child = Text('Error: ${snapshot.error}');
-                } else {
-                  // Use snapshot.data which contains your country name
-                  child = CountryCodePicker(
-                    flagDecoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(3)),
-                    onChanged: (CountryCode countryCode) {
-                      LocationService.updateCountry(countryCode.code as String);
-                    },
-                    initialSelection: snapshot.data,
-                    showCountryOnly: true,
-                    showOnlyCountryWhenClosed: true,
-                    alignLeft: false,
-                  );
-                }
-                // Wrap the child with a SizedBox to constrain its width
-                return SizedBox(
-                    width: 200, child: child); // Adjust the width as needed
-              },
-            ),
-          ),
+          // ListTile(
+          //   title: const Text('Choose your country'),
+          //   trailing: FutureBuilder<String>(
+          //     future: LocationService.getCountryName(),
+          //     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          //       Widget child;
+          //       if (snapshot.connectionState == ConnectionState.waiting) {
+          //         child = const Center(child: CircularProgressIndicator());
+          //       } else if (snapshot.hasError) {
+          //         child = Text('Error: ${snapshot.error}');
+          //       } else {
+          //         // Use snapshot.data which contains your country name
+          //         child = CountryCodePicker(
+          //           flagDecoration:
+          //               BoxDecoration(borderRadius: BorderRadius.circular(3)),
+          //           onChanged: (CountryCode countryCode) {
+          //             LocationService.updateCountry(countryCode.code as String);
+          //           },
+          //           initialSelection: snapshot.data,
+          //           showCountryOnly: true,
+          //           showOnlyCountryWhenClosed: true,
+          //           alignLeft: false,
+          //         );
+          //       }
+          //       // Wrap the child with a SizedBox to constrain its width
+          //       return SizedBox(
+          //           width: 200, child: child); // Adjust the width as needed
+          //     },
+          //   ),
+          // ),
           ListTile(
             title: const Text('Support Developers'),
             subtitle: const Text(
